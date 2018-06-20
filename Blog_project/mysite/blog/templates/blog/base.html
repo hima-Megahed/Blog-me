@@ -1,0 +1,78 @@
+<!DOCTYPE html> {% load staticfiles %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>MyBlog</title>
+
+  <!-- JQuery -->
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+  <!-- Medium Style Editor -->
+  <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'CSS/blog.css' %}">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Yanone+Kaffeesatz" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light techfont">
+    <a href="{% url 'post_list' %}" class="navbar-brand bigbrand">BlogMe</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'post_list' %}">Home <span class="sr-only">(current)</span> </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'about' %}" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" title="ForkMe On Github" data-toggle="tooltip">Github</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav my-2 my-lg-0">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'post_new' %}" class="nav-link">New Post</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'post_draft_list' %}" class="nav-link">Drafts</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">{{user.username}}</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'login' %}" class="nav-link">Login</a>
+        </li> {% endif %}
+      </ul>
+    </div>
+  </nav>
+  <!-- CONTENT BLOCK -->
+  <div class="content container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="blog_posts">
+          {% block content %} {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
